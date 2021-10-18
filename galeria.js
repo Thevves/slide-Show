@@ -1,15 +1,33 @@
 "use strict";
 
-const imagens = [
-    "./imagens/big.jpg",
-    "./imagens/bobs.jpg",
-    "./imagens/ciri.jpg",
-    "./imagens/formiga.jpg",
-    "./imagens/meme-nazare-tedesco.jpg",
-    "./imagens/emoji.jpg",
-    "./imagens/pao.jpg",
-    "./imagens/unik.jpg"
-]
+// const limparElementos = (elemento) => {
+//     while (elemento.firstChild){
+//         elemento.removeChild(elemento.lastChild);
+//     }
+// };
+
+
+const pesquisarImagens = async (evento) => {
+    
+    if(evento.key === 'Enter'){
+
+    const filme = evento.target.value;
+    const url = `https://api.tvmaze.com/episodes/${filme}`;
+    const imagensResponse = await fetch(url);
+    const imagens = await imagensResponse.json();
+    console.log(imagens);
+
+    // carregarGaleria(imagens.message);
+    // carregarSlide(imagens.message);
+
+    // limparElementos(document.querySelector('.galeria-container'));
+    // limparElementos(document.querySelector('.slide-container'));
+
+
+    // carregarSlide(imagens.message);
+    // carregarGaleria(imagens.message);
+    }   
+ }
 
 const pegarId = (url) => {
     const posBarra = url.lastIndexOf("/") + 1 
@@ -55,7 +73,7 @@ const criarSlide = (urlImagem, indice, arr) => {
 }
      
 
-const carregarSlide = (imgs) => imgs.forEach(criarSlide)
+const carregarSlide = (imgs) => imgs.forEach(criarSlide);
 
-carregarGaleria(imagens)
-carregarSlide(imagens)
+document.querySelector('.pesquisa-container input')
+.addEventListener('keypress', pesquisarImagens);
